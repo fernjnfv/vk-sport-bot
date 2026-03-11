@@ -55,6 +55,38 @@ def render_screen(user_id: int, peer_id: int, message: str, keyboard=None, attac
     update_last_bot_message(user_id, sent_message_id, peer_id)
     return sent_message_id
 
+def delete_user_message(event):
+    try:
+        msg = event.obj.message
+        message_id = msg.get("id")
+        cmid = msg.get("conversation_message_id")
+        peer_id = msg.get("peer_id")
+
+        # Сначала пробуем по обычному id
+        if message_id:
+            try:
+                vk.messages.delete(
+                    message_ids=message_id,
+                    delete_for_all=1
+                )
+                return
+            except Exception:
+                pass
+
+        # Если не вышло — пробуем по conversation_message_id
+        if cmid and peer_id:
+            try:
+                vk.messages.delete(
+                    cmids=cmid,
+                    peer_id=peer_id,
+                    delete_for_all=1
+                )
+                return
+            except Exception:
+                pass
+
+    except Exception:
+        pass
 
 def send_message_old(user_id, message, keyboard=None, attachment=None):
 
@@ -161,12 +193,13 @@ def handle_new_message(event):
         print("обновляю имя в БД")
         update_name(user_id, state["first_name"])
 
+    handled = False
     if text.lower() in ["start", "начать", "привет", "hello"]:
         state["mode"] = "main"
         show_main_menu(user_id, peer_id)
-        return
+        handled = True
 
-    if state["mode"] == "waiting_age":
+    elif state["mode"] == "waiting_age":
         if text.isdigit():
             state["age"] = int(text)
             update_age(user_id, state["age"])
@@ -179,9 +212,9 @@ def handle_new_message(event):
                 message="Пожалуйста, введи возраст числом. Например: 12",
                 keyboard=back_keyboard()
             )
-        return
+        handled = True
 
-    if state["mode"] == "waiting_sport":
+    elif state["mode"] == "waiting_sport":
         if text:
             state["sport"] = text
             update_sport(user_id, state["sport"])
@@ -194,10 +227,12 @@ def handle_new_message(event):
                 message="Пожалуйста, введи вид спорта.",
                 keyboard=back_keyboard()
             )
-        return
-
-    show_main_menu(user_id,peer_id)
-
+        handled = True
+    else:
+        show_main_menu(user_id, peer_id)
+        handled = True
+    if handled:
+        delete_user_message(event)
 
 def handle_callback(event):
     print(event.obj)
