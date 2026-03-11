@@ -41,6 +41,7 @@ def render_screen(user_id: int, peer_id: int, message: str, keyboard=None, attac
             )
             return last_message_id
         except Exception:
+            print(f"Не удалось отредактировать сообщение: {e}")
             pass
 
     # 2. Если не получилось — отправляем новое
@@ -57,6 +58,7 @@ def render_screen(user_id: int, peer_id: int, message: str, keyboard=None, attac
 
 def delete_user_message(event):
     try:
+        print(f"пытаюсь удалить польз сообщ")
         msg = event.obj.message
         message_id = msg.get("id")
         cmid = msg.get("conversation_message_id")
