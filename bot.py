@@ -84,7 +84,9 @@ def show_current_result(user_id: int):
 
 def load_from_database(user_id: int):
     user_info = vk.users.get(user_ids=user_id)
+    print(1)
     first_name = user_info[0]["first_name"]
+    print(2)
     create_user(user_id, first_name)
     user = get_user_data(user_id)
     state = get_user_state(user_id)
