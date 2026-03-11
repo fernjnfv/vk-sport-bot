@@ -6,6 +6,7 @@ load_dotenv()
 VK_TOKEN = os.getenv("VK_TOKEN")
 VK_GROUP_ID = os.getenv("VK_GROUP_ID")
 LOGO_ATTACHMENT = os.getenv("LOGO_ATTACHMENT")
+CLEAR_MESSAGES = os.getenv("CLEAR_MESSAGES", "False") == "True"
 
 if not VK_TOKEN:
     raise ValueError("Не найден VK_TOKEN в .env")

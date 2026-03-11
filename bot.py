@@ -1,6 +1,5 @@
-import json
 import vk_api
-
+from messages_service import register_message, clear_messages
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from sports_service import get_unique_sports
@@ -17,11 +16,14 @@ longpoll = VkBotLongPoll(vk_session, VK_GROUP_ID)
 all_sports = get_unique_sports()
 
 
-def send_message(user_id: int, message: str, keyboard=None, attachment=None):
+def send_message(user_id, message, keyboard=None, attachment=None):
+
+    clear_messages(vk, user_id)
+
     params = {
         "user_id": user_id,
         "random_id": get_random_id(),
-        "message": message,
+        "message": message
     }
 
     if keyboard:
@@ -30,7 +32,10 @@ def send_message(user_id: int, message: str, keyboard=None, attachment=None):
     if attachment:
         params["attachment"] = attachment
 
-    vk.messages.send(**params)
+    response = vk.messages.send(**params)
+
+    register_message(user_id, response)
+
 
 def show_main_menu(user_id: int):
     state = get_user_state(user_id)
