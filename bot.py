@@ -208,6 +208,33 @@ def handle_callback(event):
         )
         return
 
+    if cmd == "sports_prev":
+        page = payload.get("page", 0)
+        state["mode"] = "choosing_sport_from_list"
+        send_message(
+            user_id,
+            "Выбери вид спорта из списка:",
+            keyboard=sports_keyboard(sports=all_sports, page=page)
+        )
+        return
+
+    if cmd == "sports_next":
+        page = payload.get("page", 0)
+        state["mode"] = "choosing_sport_from_list"
+        send_message(
+            user_id,
+            "Выбери вид спорта из списка:",
+            keyboard=sports_keyboard(sports=all_sports, page=page)
+        )
+        return
+    if cmd == "choose_sport":
+        sport = payload.get("sport")
+        if sport:
+            state["sport"] = sport
+            state["mode"] = "main"
+            show_main_menu(user_id)
+        return
+
     if cmd == "find_sections":
         results = find_sections(age=state["age"], sport=state["sport"])
         state["results"] = results
