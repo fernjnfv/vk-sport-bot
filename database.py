@@ -8,9 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id INTEGER PRIMARY KEY,
     first_name TEXT,
     age INTEGER,
-    sport TEXT,
-    last_bot_message_id INTEGER,
-    last_bot_peer_id INTEGER
+    sport TEXT
 )
 """)
 
