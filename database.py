@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
     user_id INTEGER PRIMARY KEY,
     first_name TEXT,
     age INTEGER,
-    sport TEXT
+    sport TEXT,
+    last_bot_message_id INTEGER,
+    last_bot_peer_id INTEGER
 )
 """)
 
@@ -58,5 +60,39 @@ def update_sport(user_id, sport):
     cursor.execute(
         "UPDATE users SET sport=? WHERE user_id=?",
         (sport, user_id)
+    )
+    conn.commit()
+
+def get_last_bot_message(user_id: int):
+    cursor.execute(
+        "SELECT last_bot_message_id, last_bot_peer_id FROM users WHERE user_id=?",
+        (user_id,)
+    )
+    row = cursor.fetchone()
+    if not row:
+        return None, None
+    return row[0], row[1]
+
+
+def update_last_bot_message(user_id: int, message_id: int, peer_id: int):
+    cursor.execute(
+        """
+        UPDATE users
+        SET last_bot_message_id=?, last_bot_peer_id=?
+        WHERE user_id=?
+        """,
+        (message_id, peer_id, user_id)
+    )
+    conn.commit()
+
+
+def clear_last_bot_message(user_id: int):
+    cursor.execute(
+        """
+        UPDATE users
+        SET last_bot_message_id=NULL, last_bot_peer_id=NULL
+        WHERE user_id=?
+        """,
+        (user_id,)
     )
     conn.commit()

@@ -8,15 +8,55 @@ from config import VK_TOKEN, VK_GROUP_ID, LOGO_ATTACHMENT
 from storage import get_user_state
 from keyboards import main_keyboard, back_keyboard, results_keyboard, sport_mode_keyboard, sports_keyboard
 from sections_service import find_sections
-from database import create_user, get_user_data, update_name, update_age, update_sport
+from database import create_user, get_user_data, update_name, update_age, update_sport, update_last_bot_message, get_last_bot_message
 
 vk_session = vk_api.VkApi(token=VK_TOKEN)
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, VK_GROUP_ID)
 all_sports = get_unique_sports()
 
+def render_screen(user_id: int, peer_id: int, message: str, keyboard=None, attachment=None):
+    last_message_id, last_peer_id = get_last_bot_message(user_id)
 
-def send_message(user_id, message, keyboard=None, attachment=None):
+    params = {
+        "peer_id": peer_id,
+        "message": message,
+    }
+
+    if keyboard:
+        params["keyboard"] = keyboard
+
+    if attachment:
+        params["attachment"] = attachment
+
+    # 1. Пробуем редактировать последнее сообщение бота
+    if last_message_id and last_peer_id == peer_id:
+        try:
+            vk.messages.edit(
+                message_id=last_message_id,
+                peer_id=peer_id,
+                message=message,
+                keyboard=keyboard,
+                attachment=attachment
+            )
+            return last_message_id
+        except Exception:
+            pass
+
+    # 2. Если не получилось — отправляем новое
+    sent_message_id = vk.messages.send(
+        peer_id=peer_id,
+        random_id=get_random_id(),
+        message=message,
+        keyboard=keyboard,
+        attachment=attachment
+    )
+
+    update_last_bot_message(user_id, sent_message_id, peer_id)
+    return sent_message_id
+
+
+def send_message_old(user_id, message, keyboard=None, attachment=None):
 
     clear_messages(vk, user_id)
 
@@ -47,7 +87,7 @@ def show_main_menu(user_id: int):
         f"Выбери действие:"
     )
 
-    send_message(
+    render_screen(
         user_id=user_id,
         message=text,
         keyboard=main_keyboard(age=state["age"], sport=state["sport"]),
@@ -61,7 +101,7 @@ def show_current_result(user_id: int):
     index = state["result_index"]
 
     if not results:
-        send_message(
+        render_screen(
             user_id,
             "Ничего не найдено.",
             keyboard=back_keyboard()
@@ -78,7 +118,7 @@ def show_current_result(user_id: int):
         f"Возраст: {section['age_from']} - {section['age_to']}\n"
     )
 
-    send_message(
+    render_screen(
         user_id=user_id,
         message=text,
         keyboard=results_keyboard(
@@ -128,7 +168,7 @@ def handle_new_message(event):
             state["mode"] = "main"
             show_main_menu(user_id)
         else:
-            send_message(
+            render_screen(
                 user_id,
                 "Пожалуйста, введи возраст числом. Например: 12",
                 keyboard=back_keyboard()
@@ -142,7 +182,7 @@ def handle_new_message(event):
             state["mode"] = "main"
             show_main_menu(user_id)
         else:
-            send_message(
+            render_screen(
                 user_id,
                 "Пожалуйста, введи вид спорта.",
                 keyboard=back_keyboard()
@@ -173,7 +213,7 @@ def handle_callback(event):
 
     if cmd == "set_age":
         state["mode"] = "waiting_age"
-        send_message(
+        render_screen(
             user_id,
             "Введи возраст числом:",
             keyboard=back_keyboard()
@@ -182,7 +222,7 @@ def handle_callback(event):
 
     if cmd == "set_sport":
         state["mode"] = "choose_sport_mode"
-        send_message(
+        render_screen(
             user_id,
             "Выбери, как указать спорт:",
             keyboard=sport_mode_keyboard()
@@ -191,7 +231,7 @@ def handle_callback(event):
 
     if cmd == "sport_input_mode":
         state["mode"] = "waiting_sport"
-        send_message(
+        render_screen(
             user_id,
             "Введи вид спорта или его часть:",
             keyboard=back_keyboard()
@@ -201,7 +241,7 @@ def handle_callback(event):
     if cmd == "sport_list_mode":
         page = payload.get("page", 0)
         state["mode"] = "choosing_sport_from_list"
-        send_message(
+        render_screen(
             user_id,
             "Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
@@ -211,7 +251,7 @@ def handle_callback(event):
     if cmd == "sports_prev":
         page = payload.get("page", 0)
         state["mode"] = "choosing_sport_from_list"
-        send_message(
+        render_screen(
             user_id,
             "Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
@@ -221,7 +261,7 @@ def handle_callback(event):
     if cmd == "sports_next":
         page = payload.get("page", 0)
         state["mode"] = "choosing_sport_from_list"
-        send_message(
+        render_screen(
             user_id,
             "Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
@@ -242,7 +282,7 @@ def handle_callback(event):
         state["mode"] = "browsing_results"
 
         if not results:
-            send_message(
+            render_screen(
                 user_id,
                 "По вашему запросу ничего не найдено.",
                 keyboard=back_keyboard()
