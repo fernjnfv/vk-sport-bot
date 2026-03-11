@@ -100,6 +100,7 @@ def handle_new_message(event):
     user_info = vk.users.get(user_ids=user_id)
     # Получаем имя пользователя, если ещё не сохраняли
     if not state["loaded_from_database"]:
+        print("пытаюсь загрузиться из БД")
         load_from_database(user_id)
     if user_info[0]["first_name"] != state["first_name"]:
         state["first_name"] = user_info[0]["first_name"]
