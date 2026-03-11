@@ -3,16 +3,18 @@ import vk_api
 
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
+from sports_service import get_unique_sports
 
 from config import VK_TOKEN, VK_GROUP_ID, LOGO_ATTACHMENT
 from storage import get_user_state
-from keyboards import main_keyboard, back_keyboard, results_keyboard
+from keyboards import main_keyboard, back_keyboard, results_keyboard, sport_mode_keyboard, sports_keyboard
 from sections_service import find_sections
 from database import create_user, get_user_data, update_name, update_age, update_sport
 
 vk_session = vk_api.VkApi(token=VK_TOKEN)
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, VK_GROUP_ID)
+all_sports = get_unique_sports()
 
 
 def send_message(user_id: int, message: str, keyboard=None, attachment=None):
@@ -174,11 +176,30 @@ def handle_callback(event):
         return
 
     if cmd == "set_sport":
+        state["mode"] = "choose_sport_mode"
+        send_message(
+            user_id,
+            "Выбери, как указать спорт:",
+            keyboard=sport_mode_keyboard()
+        )
+        return
+
+    if cmd == "sport_input_mode":
         state["mode"] = "waiting_sport"
         send_message(
             user_id,
             "Введи вид спорта или его часть:",
             keyboard=back_keyboard()
+        )
+        return
+
+    if cmd == "sport_list_mode":
+        page = payload.get("page", 0)
+        state["mode"] = "choosing_sport_from_list"
+        send_message(
+            user_id,
+            "Выбери вид спорта из списка:",
+            keyboard=sports_keyboard(sports=all_sports, page=page)
         )
         return
 
