@@ -12,5 +12,6 @@ def get_user_state(user_id: int) -> Dict[str, Any]:
             "results": [],
             "result_index": 0,
             "first_name": "друг",
+            "loaded_from_database": False,
         }
     return users_data[user_id]

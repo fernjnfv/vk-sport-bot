@@ -8,7 +8,7 @@ from config import VK_TOKEN, VK_GROUP_ID, LOGO_ATTACHMENT
 from storage import get_user_state
 from keyboards import main_keyboard, back_keyboard, results_keyboard
 from sections_service import find_sections
-
+from database import create_user, get_user_data, update_name, update_age, update_sport
 
 vk_session = vk_api.VkApi(token=VK_TOKEN)
 vk = vk_session.get_api()
@@ -82,17 +82,28 @@ def show_current_result(user_id: int):
         attachment=section.get("image_attachment")
     )
 
+def load_from_database(user_id: int):
+    user_info = vk.users.get(user_ids=user_id)
+    first_name = user_info[0]["first_name"]
+    create_user(user_id, first_name)
+    user = get_user_data(user_id)
+    state = get_user_state(user_id)
+    state["first_name"] = user["first_name"]
+    state["age"] = user["age"]
+    state["sport"] = user["sport"]
+    state["loaded_from_database"] = True
 
 def handle_new_message(event):
     user_id = event.obj.message["from_id"]
     text = event.obj.message.get("text", "").strip()
     state = get_user_state(user_id)
-
+    user_info = vk.users.get(user_ids=user_id)
     # Получаем имя пользователя, если ещё не сохраняли
-    if state["first_name"] == "друг":
-        user_info = vk.users.get(user_ids=user_id)
-        if user_info:
-            state["first_name"] = user_info[0]["first_name"]
+    if not state["loaded_from_database"]:
+        load_from_database(user_id)
+    if user_info[0]["first_name"] != state["first_name"]:
+        state["first_name"] = user_info[0]["first_name"]
+        update_name(user_id, state["first_name"])
 
     if text.lower() in ["start", "начать", "привет", "hello"]:
         state["mode"] = "main"
@@ -102,8 +113,8 @@ def handle_new_message(event):
     if state["mode"] == "waiting_age":
         if text.isdigit():
             state["age"] = int(text)
+            update_age(user_id, state["age"])
             state["mode"] = "main"
-            send_message(user_id, f"Возраст сохранён: {state['age']}")
             show_main_menu(user_id)
         else:
             send_message(
@@ -116,8 +127,8 @@ def handle_new_message(event):
     if state["mode"] == "waiting_sport":
         if text:
             state["sport"] = text
+            update_sport(user_id, state["sport"])
             state["mode"] = "main"
-            send_message(user_id, f"Спорт сохранён: {state['sport']}")
             show_main_menu(user_id)
         else:
             send_message(
@@ -138,7 +149,8 @@ def handle_callback(event):
     cmd = payload.get("cmd")
 
     state = get_user_state(user_id)
-
+    if not state["loaded_from_database"]:
+        load_from_database(user_id)
     # Обязательный ответ на callback
     vk.messages.send_message_event_answer(
         event_id=event.obj.event_id,
