@@ -41,27 +41,48 @@ def back_keyboard():
     return keyboard.get_keyboard()
 
 
-def results_keyboard(has_prev: bool, has_next: bool):
+def results_keyboard(index: int, total: int, has_prev: bool, has_next: bool):
     keyboard = VkKeyboard(inline=True)
 
     if has_prev:
         keyboard.add_callback_button(
-            label="⬅️ Предыдущая",
+            label="⬅️",
             color=VkKeyboardColor.PRIMARY,
-            payload=json.dumps({"cmd": "prev_result"})
+            payload={"cmd": "prev_result"}
+        )
+    else:
+        keyboard.add_callback_button(
+            label="·",
+            color=VkKeyboardColor.SECONDARY,
+            payload={"cmd": "ignore"}
         )
 
     keyboard.add_callback_button(
-        label="🏠 В начало",
+        label=f"{index + 1} / {total}",
         color=VkKeyboardColor.SECONDARY,
-        payload=json.dumps({"cmd": "back_to_main"})
+        payload={"cmd": "ignore"}
     )
 
     if has_next:
         keyboard.add_callback_button(
-            label="➡️ Следующая",
+            label="➡️",
             color=VkKeyboardColor.PRIMARY,
-            payload=json.dumps({"cmd": "next_result"})
+            payload={"cmd": "next_result"}
+        )
+    else:
+        keyboard.add_callback_button(
+            label="·",
+            color=VkKeyboardColor.SECONDARY,
+            payload={"cmd": "ignore"}
         )
 
+    keyboard.add_line()
+
+    keyboard.add_callback_button(
+        label="🏠 В меню",
+        color=VkKeyboardColor.SECONDARY,
+        payload={"cmd": "back_to_main"}
+    )
+
     return keyboard.get_keyboard()
+

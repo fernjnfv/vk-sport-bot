@@ -69,15 +69,16 @@ def show_current_result(user_id: int):
         f"{section['description']}\n\n"
         f"Спорт: {section['sport']}\n"
         f"Возраст: {section['age_from']} - {section['age_to']}\n"
-        f"Секция {index + 1} из {total}"
     )
 
     send_message(
         user_id=user_id,
         message=text,
         keyboard=results_keyboard(
+            index=index,
+            total=total,
             has_prev=index > 0,
-            has_next=index < total - 1
+            has_next=index < total - 1,
         ),
         attachment=section.get("image_attachment")
     )
@@ -160,6 +161,8 @@ def handle_callback(event):
         user_id=user_id,
         peer_id=event.obj.peer_id
     )
+    if cmd == "ignore":
+        return
 
     if cmd == "set_age":
         state["mode"] = "waiting_age"
