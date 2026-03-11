@@ -134,7 +134,7 @@ def handle_callback(event):
     print(event.obj)
 
     user_id = event.obj.user_id
-    payload = json.loads(event.obj.payload)
+    payload = event.obj.payload
     cmd = payload.get("cmd")
 
     state = get_user_state(user_id)
