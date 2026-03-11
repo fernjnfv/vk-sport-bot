@@ -202,9 +202,11 @@ def main():
     for event in longpoll.listen():
         try:
             if event.type == VkBotEventType.MESSAGE_NEW:
+                print("MESSAGE_NEW")
                 handle_new_message(event)
 
             elif event.type == VkBotEventType.MESSAGE_EVENT:
+                print("MESSAGE_EVENT")
                 handle_callback(event)
 
         except Exception as e:
