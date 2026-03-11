@@ -90,7 +90,8 @@ def load_from_database(user_id: int):
     create_user(user_id, first_name)
     user = get_user_data(user_id)
     state = get_user_state(user_id)
-    state["first_name"] = user["first_name"]
+    print(2)
+    state["first_name"] = user["name"]
     state["age"] = user["age"]
     state["sport"] = user["sport"]
     state["loaded_from_database"] = True
