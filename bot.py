@@ -39,6 +39,7 @@ def render_screen(user_id: int, peer_id: int, message: str, keyboard=None, attac
                 keyboard=keyboard,
                 attachment=attachment
             )
+            print(f"удачно измениел сообщение")
             return last_message_id
         except Exception:
             print(f"Не удалось отредактировать сообщение: {e}")
