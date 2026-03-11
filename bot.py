@@ -103,6 +103,7 @@ def handle_new_message(event):
         load_from_database(user_id)
     if user_info[0]["first_name"] != state["first_name"]:
         state["first_name"] = user_info[0]["first_name"]
+        print("обновляю имя в БД")
         update_name(user_id, state["first_name"])
 
     if text.lower() in ["start", "начать", "привет", "hello"]:
