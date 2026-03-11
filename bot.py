@@ -1,11 +1,10 @@
 import json
-import random
 import vk_api
 
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 
-from config import VK_TOKEN, VK_GROUP_ID
+from config import VK_TOKEN, VK_GROUP_ID, LOGO_ATTACHMENT
 from storage import get_user_state
 from keyboards import main_keyboard, back_keyboard, results_keyboard
 from sections_service import find_sections
@@ -16,20 +15,20 @@ vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, VK_GROUP_ID)
 
 
-def send_message(user_id: int, message: str, keyboard=None):
-    vk.messages.send(
-        user_id=user_id,
-        random_id=get_random_id(),
-        message=message,
-        keyboard=keyboard
-    )
+def send_message(user_id: int, message: str, keyboard=None, attachment=None):
+    params = {
+        "user_id": user_id,
+        "random_id": get_random_id(),
+        "message": message,
+    }
 
+    if keyboard:
+        params["keyboard"] = keyboard
 
-def send_photo_by_url(user_id: int, image_url: str, message: str, keyboard=None):
-    # Пока просто отправим ссылку в тексте, чтобы не усложнять загрузкой.
-    full_message = f"{message}\n\nФото: {image_url}"
-    send_message(user_id, full_message, keyboard)
+    if attachment:
+        params["attachment"] = attachment
 
+    vk.messages.send(**params)
 
 def show_main_menu(user_id: int):
     state = get_user_state(user_id)
@@ -44,7 +43,8 @@ def show_main_menu(user_id: int):
     send_message(
         user_id=user_id,
         message=text,
-        keyboard=main_keyboard(age=state["age"], sport=state["sport"])
+        keyboard=main_keyboard(age=state["age"], sport=state["sport"]),
+        attachment=LOGO_ATTACHMENT
     )
 
 
@@ -72,14 +72,14 @@ def show_current_result(user_id: int):
         f"Секция {index + 1} из {total}"
     )
 
-    send_photo_by_url(
+    send_message(
         user_id=user_id,
-        image_url=section["image_url"],
         message=text,
         keyboard=results_keyboard(
             has_prev=index > 0,
             has_next=index < total - 1
-        )
+        ),
+        attachment=section.get("image_attachment")
     )
 
 
