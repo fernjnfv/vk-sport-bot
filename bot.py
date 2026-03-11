@@ -131,6 +131,7 @@ def handle_new_message(event):
 
 
 def handle_callback(event):
+    print(event.obj)
     user_id = event.obj.user_id
     payload = json.loads(event.obj.payload)
     cmd = payload.get("cmd")
