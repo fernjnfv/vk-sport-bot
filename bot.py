@@ -77,7 +77,7 @@ def send_message_old(user_id, message, keyboard=None, attachment=None):
     register_message(user_id, response)
 
 
-def show_main_menu(user_id: int):
+def show_main_menu(user_id: int, peer_id: int):
     state = get_user_state(user_id)
     first_name = state.get("first_name", "друг")
 
@@ -89,13 +89,14 @@ def show_main_menu(user_id: int):
 
     render_screen(
         user_id=user_id,
+        peer_id=peer_id,
         message=text,
         keyboard=main_keyboard(age=state["age"], sport=state["sport"]),
         attachment=LOGO_ATTACHMENT
     )
 
 
-def show_current_result(user_id: int):
+def show_current_result(user_id: int, peer_id: int):
     state = get_user_state(user_id)
     results = state["results"]
     index = state["result_index"]
@@ -103,7 +104,8 @@ def show_current_result(user_id: int):
     if not results:
         render_screen(
             user_id,
-            "Ничего не найдено.",
+            peer_id=peer_id,
+            message="Ничего не найдено.",
             keyboard=back_keyboard()
         )
         return
@@ -120,6 +122,7 @@ def show_current_result(user_id: int):
 
     render_screen(
         user_id=user_id,
+        peer_id=peer_id,
         message=text,
         keyboard=results_keyboard(
             index=index,
@@ -142,7 +145,9 @@ def load_from_database(user_id: int):
     state["loaded_from_database"] = True
 
 def handle_new_message(event):
-    user_id = event.obj.message["from_id"]
+    msg = event.obj.message
+    user_id = msg["from_id"]
+    peer_id = msg["peer_id"]
     text = event.obj.message.get("text", "").strip()
     state = get_user_state(user_id)
     user_info = vk.users.get(user_ids=user_id)
@@ -158,7 +163,7 @@ def handle_new_message(event):
 
     if text.lower() in ["start", "начать", "привет", "hello"]:
         state["mode"] = "main"
-        show_main_menu(user_id)
+        show_main_menu(user_id, peer_id)
         return
 
     if state["mode"] == "waiting_age":
@@ -166,11 +171,12 @@ def handle_new_message(event):
             state["age"] = int(text)
             update_age(user_id, state["age"])
             state["mode"] = "main"
-            show_main_menu(user_id)
+            show_main_menu(user_id,peer_id)
         else:
             render_screen(
                 user_id,
-                "Пожалуйста, введи возраст числом. Например: 12",
+                peer_id=peer_id,
+                message="Пожалуйста, введи возраст числом. Например: 12",
                 keyboard=back_keyboard()
             )
         return
@@ -180,21 +186,22 @@ def handle_new_message(event):
             state["sport"] = text
             update_sport(user_id, state["sport"])
             state["mode"] = "main"
-            show_main_menu(user_id)
+            show_main_menu(user_id,peer_id)
         else:
             render_screen(
                 user_id,
-                "Пожалуйста, введи вид спорта.",
+                peer_id=peer_id,
+                message="Пожалуйста, введи вид спорта.",
                 keyboard=back_keyboard()
             )
         return
 
-    show_main_menu(user_id)
+    show_main_menu(user_id,peer_id)
 
 
 def handle_callback(event):
     print(event.obj)
-
+    peer_id = event.obj.peer_id
     user_id = event.obj.user_id
     payload = event.obj.payload
     cmd = payload.get("cmd")
@@ -206,7 +213,7 @@ def handle_callback(event):
     vk.messages.send_message_event_answer(
         event_id=event.obj.event_id,
         user_id=user_id,
-        peer_id=event.obj.peer_id
+        peer_id=peer_id
     )
     if cmd == "ignore":
         return
@@ -215,7 +222,8 @@ def handle_callback(event):
         state["mode"] = "waiting_age"
         render_screen(
             user_id,
-            "Введи возраст числом:",
+            peer_id = peer_id,
+            message="Введи возраст числом:",
             keyboard=back_keyboard()
         )
         return
@@ -224,7 +232,8 @@ def handle_callback(event):
         state["mode"] = "choose_sport_mode"
         render_screen(
             user_id,
-            "Выбери, как указать спорт:",
+            peer_id=peer_id,
+            message="Выбери, как указать спорт:",
             keyboard=sport_mode_keyboard()
         )
         return
@@ -233,7 +242,8 @@ def handle_callback(event):
         state["mode"] = "waiting_sport"
         render_screen(
             user_id,
-            "Введи вид спорта или его часть:",
+            peer_id=peer_id,
+            message="Введи вид спорта или его часть:",
             keyboard=back_keyboard()
         )
         return
@@ -243,7 +253,8 @@ def handle_callback(event):
         state["mode"] = "choosing_sport_from_list"
         render_screen(
             user_id,
-            "Выбери вид спорта из списка:",
+            peer_id=peer_id,
+            message="Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
         )
         return
@@ -253,7 +264,8 @@ def handle_callback(event):
         state["mode"] = "choosing_sport_from_list"
         render_screen(
             user_id,
-            "Выбери вид спорта из списка:",
+            peer_id=peer_id,
+            message="Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
         )
         return
@@ -263,7 +275,8 @@ def handle_callback(event):
         state["mode"] = "choosing_sport_from_list"
         render_screen(
             user_id,
-            "Выбери вид спорта из списка:",
+            peer_id=peer_id,
+            message="Выбери вид спорта из списка:",
             keyboard=sports_keyboard(sports=all_sports, page=page)
         )
         return
@@ -271,8 +284,9 @@ def handle_callback(event):
         sport = payload.get("sport")
         if sport:
             state["sport"] = sport
+            update_sport(user_id, state["sport"])
             state["mode"] = "main"
-            show_main_menu(user_id)
+            show_main_menu(user_id, peer_id)
         return
 
     if cmd == "find_sections":
@@ -284,28 +298,29 @@ def handle_callback(event):
         if not results:
             render_screen(
                 user_id,
-                "По вашему запросу ничего не найдено.",
+                peer_id=peer_id,
+                message="По вашему запросу ничего не найдено.",
                 keyboard=back_keyboard()
             )
         else:
-            show_current_result(user_id)
+            show_current_result(user_id, peer_id)
         return
 
     if cmd == "prev_result":
         if state["result_index"] > 0:
             state["result_index"] -= 1
-        show_current_result(user_id)
+        show_current_result(user_id, peer_id)
         return
 
     if cmd == "next_result":
         if state["result_index"] < len(state["results"]) - 1:
             state["result_index"] += 1
-        show_current_result(user_id)
+        show_current_result(user_id, peer_id)
         return
 
     if cmd == "back_to_main":
         state["mode"] = "main"
-        show_main_menu(user_id)
+        show_main_menu(user_id, peer_id)
         return
 
 
