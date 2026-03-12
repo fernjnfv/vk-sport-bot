@@ -1,3 +1,7 @@
+import time
+import traceback
+
+import requests
 import vk_api
 from messages_service import register_message, clear_messages
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
@@ -10,10 +14,17 @@ from keyboards import main_keyboard, back_keyboard, results_keyboard, sport_mode
 from sections_service import find_sections
 from database import create_user, get_user_data, update_name, update_age, update_sport
 
-vk_session = vk_api.VkApi(token=VK_TOKEN)
-vk = vk_session.get_api()
-longpoll = VkBotLongPoll(vk_session, VK_GROUP_ID)
+
 all_sports = get_unique_sports()
+
+def create_vk():
+    vk_session_local = vk_api.VkApi(token=VK_TOKEN)
+    vk_local  = vk_session.get_api()
+    longpoll_local  = VkBotLongPoll(vk_session, VK_GROUP_ID)
+    return vk_session_local, vk_local, longpoll_local
+
+
+vk_session, vk, longpoll = create_vk()
 
 def send_message(user_id, message, keyboard=None, attachment=None):
 
@@ -269,21 +280,38 @@ def handle_callback(event):
 
 
 def main():
+    global vk_session, vk, longpoll
     print("Бот запущен...")
 
-    for event in longpoll.listen():
+    while True:
         try:
-            if event.type == VkBotEventType.MESSAGE_NEW:
-                print("MESSAGE_NEW")
-                handle_new_message(event)
+            for event in longpoll.listen():
+                try:
+                    if event.type == VkBotEventType.MESSAGE_NEW:
+                        print("MESSAGE_NEW")
+                        handle_new_message(event)
 
-            elif event.type == VkBotEventType.MESSAGE_EVENT:
-                print("MESSAGE_EVENT")
-                handle_callback(event)
+                    elif event.type == VkBotEventType.MESSAGE_EVENT:
+                        print("MESSAGE_EVENT")
+                        handle_callback(event)
 
-        except Exception as e:
-            print(f"Ошибка: {e}")
+                except Exception:
+                    print("Ошибка при обработке события:")
+                    traceback.print_exc()
+        except requests.exceptions.ReadTimeout:
+            print("LongPoll timeout, переподключаюсь...")
+            vk_session, vk, longpoll = create_vk()
+            time.sleep(1)
+        except requests.exceptions.ConnectionError:
+            print("LongPoll connection error, переподключаюсь...")
+            vk_session, vk, longpoll = create_vk()
+            time.sleep(3)
 
+        except Exception:
+            print("Критическая ошибка longpoll, переподключаюсь...")
+            traceback.print_exc()
+            vk_session, vk, longpoll = create_vk()
+            time.sleep(3)
 
 if __name__ == "__main__":
     main()
