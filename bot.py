@@ -19,8 +19,8 @@ all_sports = get_unique_sports()
 
 def create_vk():
     vk_session_local = vk_api.VkApi(token=VK_TOKEN)
-    vk_local  = vk_session.get_api()
-    longpoll_local  = VkBotLongPoll(vk_session, VK_GROUP_ID)
+    vk_local  = vk_session_local.get_api()
+    longpoll_local  = VkBotLongPoll(vk_session_local, VK_GROUP_ID)
     return vk_session_local, vk_local, longpoll_local
 
 
