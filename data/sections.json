@@ -167,12 +167,12 @@
     "sport": "ролики",
     "title": "Роллер Дом",
     "age_from": 3.5,
-    "age_to": 99,
-    "description": "Обучение катанию на роликовых коньках.",
+    "age_to": null,
+    "description": "Обучение катанию на роликовых коньках. \n\n - Индивидуальные и групповые тренировки на роликах.\n• Базовый уровень.\n• База \"+\" - продвинутый уровень.\n• Основы видов роллер на спорта. \n",
     "trainer": "Кушникова Мария Васильевна",
     "phone": "89952772560",
     "vk": "https://vk.com/rollerdomchaik",
-    "image_attachment": ""
+    "image_attachment": "photo-223914879_456239019"
   },
 
   {
@@ -180,12 +180,12 @@
     "sport": "горные лыжи",
     "title": "СШ Рекорд",
     "age_from": 8,
-    "age_to": 18,
+    "age_to": null,
     "description": "Секция горнолыжного спорта.",
     "trainer": "Андреева Елена Сергеевна",
     "phone": "+7(34241)3-52-54",
     "vk": "https://vk.com/rekord_chaik",
-    "image_attachment": ""
+    "image_attachment": "photo-162267818_457241593"
   },
 
   {
@@ -193,20 +193,20 @@
     "sport": "картинг",
     "title": "КАМА-КАРТ",
     "age_from": 5,
-    "age_to": 18,
+    "age_to": null,
     "description": "Картинг клуб для детей.",
     "trainer": null,
     "phone": "+7 (922) 389-22-11",
     "vk": "https://vk.com/kama_kart",
-    "image_attachment": ""
+    "image_attachment": "photo-58345008_456239087"
   },
 
   {
     "id": 17,
     "sport": "прыжки на лыжах",
     "title": "Альянс",
-    "age_from": 8,
-    "age_to": 18,
+    "age_from": null,
+    "age_to": null,
     "description": "Прыжки на лыжах с трамплина.",
     "trainer": null,
     "phone": "+7 (34241) 7-40-14",
