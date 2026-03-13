@@ -14,8 +14,7 @@ def normalize_text(text: str) -> str:
     return text.strip().lower()
 
 
-def find_sections(age: int | None, sport: str | None):
-    sections = load_sections()
+def find_sections(sections, age: int | None, sport: str | None):
     sport_query = normalize_text(sport) if sport else None
 
     results = []

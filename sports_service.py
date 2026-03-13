@@ -1,7 +1,5 @@
-from sections_service import load_sections
 
-def get_unique_sports():
-    sections = load_sections()
+def get_unique_sports(sections):
     sports = set()
 
     for s in sections:

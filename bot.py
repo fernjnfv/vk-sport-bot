@@ -14,9 +14,10 @@ from keyboards import main_keyboard, back_keyboard, results_keyboard, sport_mode
 from sections_service import find_sections
 from database import create_user, get_user_data, update_name, update_age, update_sport
 from section_formatter import format_section_card
+from sections_service import load_sections
 
-
-all_sports = get_unique_sports()
+all_sections = load_sections()
+all_sports = get_unique_sports(all_sections)
 
 def create_vk():
     vk_session_local = vk_api.VkApi(token=VK_TOKEN)
@@ -246,7 +247,7 @@ def handle_callback(event):
         return
 
     if cmd == "find_sections":
-        results = find_sections(age=state["age"], sport=state["sport"])
+        results = find_sections(sections=all_sections ,age=state["age"], sport=state["sport"])
         state["results"] = results
         state["result_index"] = 0
         state["mode"] = "browsing_results"
