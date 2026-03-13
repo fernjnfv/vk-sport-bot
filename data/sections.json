@@ -125,7 +125,7 @@
 
   {
     "id": 11,
-    "sport": "беговел ",
+    "sport": "беговел",
     "title": "Extreme Kids",
     "age_from": 2,
     "age_to": 5,
@@ -161,7 +161,6 @@
     "vk": "https://vk.com/oblaka.sporta",
     "image_attachment": "photo-77685426_457241008"
   },
-
   {
     "id": 14,
     "sport": "ролики",
@@ -174,7 +173,6 @@
     "vk": "https://vk.com/rollerdomchaik",
     "image_attachment": "photo-223914879_456239019"
   },
-
   {
     "id": 15,
     "sport": "горные лыжи",
@@ -187,7 +185,6 @@
     "vk": "https://vk.com/rekord_chaik",
     "image_attachment": "photo-162267818_457241593"
   },
-
   {
     "id": 16,
     "sport": "картинг",
@@ -200,7 +197,6 @@
     "vk": "https://vk.com/kama_kart",
     "image_attachment": "photo-58345008_456239087"
   },
-
   {
     "id": 17,
     "sport": "прыжки на лыжах",
@@ -211,33 +207,31 @@
     "trainer": null,
     "phone": "+7 (34241) 7-40-14",
     "vk": "https://vk.com/club188115643",
-    "image_attachment": ""
+    "image_attachment": "photo-188115643_457239933"
   },
-
   {
     "id": 18,
     "sport": "художественная гимнастика",
     "title": "Студия художественной гимнастики",
     "age_from": 5,
-    "age_to": 14,
-    "description": "Развитие гибкости, пластики и чувства ритма.",
+    "age_to": null,
+    "description": "Развитие гибкости, пластики и чувства ритма.Изучение основных элементов гимнастики.",
     "trainer": "Липатова Регина Анатольевна",
     "phone": "+7(34241)3-35-42",
     "vk": "https://vk.com/chaikdvorec",
-    "image_attachment": ""
+    "image_attachment": "photo-9755824_457256360"
   },
-
   {
     "id": 19,
     "sport": "плавание",
     "title": "Темп",
     "age_from": 6,
-    "age_to": 18,
+    "age_to": null,
     "description": "Обучение плаванию.",
     "trainer": "Малышева Людмила Александровна",
     "phone": "+7 (34241) 26-000",
     "vk": "https://vk.com/sportkomplekstempchaik",
-    "image_attachment": ""
+    "image_attachment": "photo-89976204_457245288"
   },
 
   {
@@ -245,12 +239,12 @@
     "sport": "плавание",
     "title": "Буревестник",
     "age_from": 6,
-    "age_to": 18,
+    "age_to": null,
     "description": "Секция плавания.",
     "trainer": "Сергеева Светлана Юрьевна",
     "phone": "+7(34241)3-27-84",
     "vk": "https://vk.com/public205676874",
-    "image_attachment": ""
+    "image_attachment": "photo-205676874_457239307"
   },
 
   {
@@ -264,5 +258,102 @@
     "phone": "+7(34241)7-40-16",
     "vk": "https://vk.com/club217668558",
     "image_attachment": ""
+  },
+
+  {
+    "id": 22,
+    "sport": "плавание",
+    "title": "Буревестник",
+    "age_from": 6,
+    "age_to": null,
+    "description": "Коррекционная группа по плаванию.",
+    "trainer": "Бушманова Татьяна Сергеевна",
+    "phone": "8(922)3426046",
+    "vk": "https://vk.com/public205676874",
+    "image_attachment": "photo-205676874_457239307"
+  },
+  {
+    "id": 23,
+    "sport": "аквоэробика",
+    "title": "Темп",
+    "age_from": 14,
+    "age_to": null,
+    "description": "Секция аквоэробики.",
+    "trainer": "Матрехина Ольга Ивановна",
+    "phone": "+7(34241)26-000",
+    "vk": "https://vk.com/sportkomplekstempchaik",
+    "image_attachment": "photo-89976204_457245288"
+  },
+  {
+    "id": 24,
+    "sport": "аквоэробика",
+    "title": "Буревестник",
+    "age_from": 14,
+    "age_to": null,
+    "description": "Секция аквоэробики.",
+    "trainer": "Олеся Килина",
+    "phone": "+7(34241)7-40-16",
+    "vk": "https://vk.com/public20567687",
+    "image_attachment": "photo-20567687_456239017"
+  },
+  {
+    "id": 25,
+    "sport": "aвтокросс",
+    "title": "СШ Рекорд",
+    "age_from": 11,
+    "age_to": null,
+    "description": "Секция автокросса.",
+    "trainer": "Андреева Елена Сергеевна",
+    "phone": "+7(34241)3-52-54",
+    "vk": "https://vk.com/rekord_chaik",
+    "image_attachment": "photo-162267818_457241593"
+  },
+  {
+    "id": 26,
+    "sport": "ролики",
+    "title": "Extreme Kids",
+    "age_from": 3.5,
+    "age_to": null,
+    "description": "Занятия на роликах. \n\n Занятия в небольших группах до 8 ребят. Индивидуальные занятия со 100% вниманием тренера. Есть прокат необходимого оборудования (защита, шлем, беговел, велосипед, ролики, лонгборд и т.д.). Можно заниматься на своём оборудовании. ",
+    "trainer": null,
+    "phone": "+7 (342) 225-15-20",
+    "vk": "https://vk.com/extremekids.chaik",
+    "image_attachment": "photo-209570283_457239017"
+  },
+  {
+    "id": 27,
+    "sport": "велосипед",
+    "title": "Extreme Kids",
+    "age_from": 3.5,
+    "age_to": null,
+    "description": "Занятия на велосипеде. \n\n Занятия в небольших группах до 8 ребят. Индивидуальные занятия со 100% вниманием тренера. Есть прокат необходимого оборудования (защита, шлем, беговел, велосипед, ролики, лонгборд и т.д.). Можно заниматься на своём оборудовании. ",
+    "trainer": null,
+    "phone": "+7 (342) 225-15-20",
+    "vk": "https://vk.com/extremekids.chaik",
+    "image_attachment": "photo-209570283_457239017"
+  },
+  {
+    "id": 28,
+    "sport": "трюковой велосипед",
+    "title": "Extreme Kids",
+    "age_from": 7,
+    "age_to": null,
+    "description": "Занятия на трюковом ВМХ-велосипеде. \n\n Занятия в небольших группах до 8 ребят. Индивидуальные занятия со 100% вниманием тренера. Есть прокат необходимого оборудования (защита, шлем, беговел, велосипед, ролики, лонгборд и т.д.). Можно заниматься на своём оборудовании. ",
+    "trainer": null,
+    "phone": "+7 (342) 225-15-20",
+    "vk": "https://vk.com/extremekids.chaik",
+    "image_attachment": "photo-209570283_457239017"
+  },
+  {
+    "id": 29,
+    "sport": "лонгборд",
+    "title": "Extreme Kids",
+    "age_from": 5,
+    "age_to": null,
+    "description": "Занятия на лонгборде. \n\n Занятия в небольших группах до 8 ребят. Индивидуальные занятия со 100% вниманием тренера. Есть прокат необходимого оборудования (защита, шлем, беговел, велосипед, ролики, лонгборд и т.д.). Можно заниматься на своём оборудовании. ",
+    "trainer": null,
+    "phone": "+7 (342) 225-15-20",
+    "vk": "https://vk.com/extremekids.chaik",
+    "image_attachment": "photo-209570283_457239017"
   }
 ]
