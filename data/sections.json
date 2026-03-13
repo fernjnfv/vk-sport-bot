@@ -1,47 +1,268 @@
 [
   {
     "id": 1,
-    "title": "Футбол для детей",
     "sport": "футбол",
-    "age_from": 7,
-    "age_to": 12,
-    "description": "Групповые тренировки по футболу для начинающих.",
-    "image_attachment": "photo-236557317_457239019"
+    "title": "Юная Лига",
+    "age_from": 3,
+    "age_to": 15,
+    "description": "Общая физическая подготовка и социализация через футбол.",
+    "trainer": null,
+    "phone": "8-922-500-54-66",
+    "vk": "https://vk.com/futbolnaya_shkola_chaikovskii",
+    "image_attachment": "photo-236557317_457239025"
   },
   {
     "id": 2,
-    "title": "Бокс подростковый",
-    "sport": "бокс",
-    "age_from": 12,
-    "age_to": 16,
-    "description": "Тренировки по боксу для подростков с опытным тренером.",
-    "image_attachment": "photo-236557317_457239020"
+    "sport": "футбол",
+    "title": "Юниор",
+    "age_from": 3,
+    "age_to": 18,
+    "description": "Международная сеть футбольных школ с игровой методикой тренировок. \n\n Мы – футбольная семья, в которой важны и результат, и путь ребенка. Поэтому все занятия строятся на проверенной игровой методике. Подайте заявку и начните тренироваться уже на этой неделе",
+    "trainer": null,
+    "phone": null,
+    "vk": "https://vk.com/fsjuniorcom",
+    "image_attachment": "photo-70033739_457257066"
   },
   {
     "id": 3,
-    "title": "Плавание",
-    "sport": "плавание",
-    "age_from": 6,
-    "age_to": 14,
-    "description": "Обучение плаванию и улучшение техники.",
-    "image_attachment": "photo-236557317_457239018"
+    "sport": "футбол",
+    "title": "ФК Энергия",
+    "age_from": 4,
+    "age_to": 18,
+    "description": "Детский футбольный клуб. Тренировки проходят на стадионе Энергия.",
+    "trainer": null,
+    "phone": "+7 (922) 642-41-91",
+    "vk": "https://vk.com/club230712539",
+    "image_attachment": ""
   },
   {
     "id": 4,
-    "title": "Мини-футбол",
     "sport": "футбол",
-    "age_from": 10,
-    "age_to": 15,
-    "description": "Секция мини-футбола для школьников.",
-    "image_attachment": "photo-236557317_457239017"
+    "title": "Чемпион",
+    "age_from": 3,
+    "age_to": 18,
+    "description": "Крупная сеть спортивных секций с новым подходом к работе с детьми.",
+    "trainer": null,
+    "phone": "8-919-457-27-80",
+    "vk": "https://vk.com/chaikovskiichampion",
+    "image_attachment": ""
   },
-    {
+
+  {
     "id": 5,
-    "title": "Баскетбол",
+    "sport": "волейбол",
+    "title": "СШ Рекорд",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Тренировки по волейболу для развития силы, ловкости и выносливости.",
+    "trainer": "Мазунина Юлия Владимировна",
+    "phone": "8(904)318-71-33",
+    "vk": "https://vk.com/volleyball_chaykovsky",
+    "image_attachment": ""
+  },
+  {
+    "id": 6,
+    "sport": "волейбол",
+    "title": "Парма",
+    "age_from": 9,
+    "age_to": 17,
+    "description": "Спортивная школа волейбола.",
+    "trainer": "Тотьмянин Николай Михайлович",
+    "phone": "8(922)347-92-42",
+    "vk": "https://vk.com/parmavolley",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 7,
     "sport": "баскетбол",
-    "age_from": 10,
-    "age_to": 15,
-    "description": "Секция баскетбола для школьников.",
-    "image_attachment": "photo-236557317_457239024"
+    "title": "Галактика",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Баскетбольный клуб для развития координации и выносливости.",
+    "trainer": "Анна Лопатина",
+    "phone": "+7(34241)3-52-54",
+    "vk": "https://vk.com/clubgalaktika59",
+    "image_attachment": ""
+  },
+  {
+    "id": 8,
+    "sport": "баскетбол",
+    "title": "СШ Рекорд",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Баскетбольные тренировки для мальчиков и девочек.",
+    "trainer": "Лопатина Анна Андреевна",
+    "phone": "+7(34241)3-52-54",
+    "vk": "https://vk.com/rekord_chaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 9,
+    "sport": "хоккей",
+    "title": "ХК Викинг",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Хоккейный клуб для мальчиков и девочек.",
+    "trainer": "Колегов Николай Валентинович",
+    "phone": "8(926)699-68-44",
+    "vk": "https://vk.com/hockey_club_viking_2009_2011",
+    "image_attachment": ""
+  },
+  {
+    "id": 10,
+    "sport": "хоккей",
+    "title": "ХК Темп",
+    "age_from": 4,
+    "age_to": 18,
+    "description": "Хоккейная секция для детей.",
+    "trainer": "Христолюбов Дмитрий Витальевич",
+    "phone": "+7(34241)2-50-10",
+    "vk": "https://vk.com/sportkomplekstempchaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 11,
+    "sport": "экстрим",
+    "title": "Extreme Kids",
+    "age_from": 2,
+    "age_to": 18,
+    "description": "Занятия на беговеле, роликах, велосипеде и лонгборде.",
+    "trainer": null,
+    "phone": "+7 (342) 225-15-20",
+    "vk": "https://vk.com/extremekids.chaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 12,
+    "sport": "акробатика",
+    "title": "Акробатика Снежинка",
+    "age_from": 5,
+    "age_to": 18,
+    "description": "Акробатика и батуты для детей.",
+    "trainer": "Ульяна Гилева",
+    "phone": "89223362717",
+    "vk": "https://vk.com/acrobatchaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 13,
+    "sport": "акробатика",
+    "title": "Облака спорта",
+    "age_from": 5,
+    "age_to": 14,
+    "description": "Центр воздушной акробатики.",
+    "trainer": "Карина Лав",
+    "phone": "+7 (922) 375-83-85",
+    "vk": "https://vk.com/oblaka.sporta",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 14,
+    "sport": "ролики",
+    "title": "Роллер Дом",
+    "age_from": 3,
+    "age_to": 99,
+    "description": "Обучение катанию на роликовых коньках.",
+    "trainer": "Кушникова Мария Васильевна",
+    "phone": "89952772560",
+    "vk": "https://vk.com/rollerdomchaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 15,
+    "sport": "горные лыжи",
+    "title": "СШ Рекорд",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Секция горнолыжного спорта.",
+    "trainer": "Андреева Елена Сергеевна",
+    "phone": "+7(34241)3-52-54",
+    "vk": "https://vk.com/rekord_chaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 16,
+    "sport": "картинг",
+    "title": "КАМА-КАРТ",
+    "age_from": 5,
+    "age_to": 18,
+    "description": "Картинг клуб для детей.",
+    "trainer": null,
+    "phone": "+7 (922) 389-22-11",
+    "vk": "https://vk.com/kama_kart",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 17,
+    "sport": "прыжки на лыжах",
+    "title": "Альянс",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Прыжки на лыжах с трамплина.",
+    "trainer": null,
+    "phone": "+7 (34241) 7-40-14",
+    "vk": "https://vk.com/club188115643",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 18,
+    "sport": "художественная гимнастика",
+    "title": "Студия художественной гимнастики",
+    "age_from": 5,
+    "age_to": 14,
+    "description": "Развитие гибкости, пластики и чувства ритма.",
+    "trainer": "Липатова Регина Анатольевна",
+    "phone": "+7(34241)3-35-42",
+    "vk": "https://vk.com/chaikdvorec",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 19,
+    "sport": "плавание",
+    "title": "Темп",
+    "age_from": 6,
+    "age_to": 18,
+    "description": "Обучение плаванию.",
+    "trainer": "Малышева Людмила Александровна",
+    "phone": "+7 (34241) 26-000",
+    "vk": "https://vk.com/sportkomplekstempchaik",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 20,
+    "sport": "плавание",
+    "title": "Буревестник",
+    "age_from": 6,
+    "age_to": 18,
+    "description": "Секция плавания.",
+    "trainer": "Сергеева Светлана Юрьевна",
+    "phone": "+7(34241)3-27-84",
+    "vk": "https://vk.com/public205676874",
+    "image_attachment": ""
+  },
+
+  {
+    "id": 21,
+    "sport": "гребля",
+    "title": "СК Мастер",
+    "age_from": 8,
+    "age_to": 18,
+    "description": "Секция гребли.",
+    "trainer": "Марина Ковалевская",
+    "phone": "+7(34241)7-40-16",
+    "vk": "https://vk.com/club217668558",
+    "image_attachment": ""
   }
 ]

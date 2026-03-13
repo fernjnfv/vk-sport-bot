@@ -13,6 +13,7 @@ from storage import get_user_state
 from keyboards import main_keyboard, back_keyboard, results_keyboard, sport_mode_keyboard, sports_keyboard
 from sections_service import find_sections
 from database import create_user, get_user_data, update_name, update_age, update_sport
+from section_formatter import format_section_card
 
 
 all_sports = get_unique_sports()
@@ -81,11 +82,10 @@ def show_current_result(user_id: int):
     section = results[index]
     total = len(results)
 
-    text = (
-        f"{section['title']}\n\n"
-        f"{section['description']}\n\n"
-        f"Спорт: {section['sport']}\n"
-        f"Возраст: {section['age_from']} - {section['age_to']}\n"
+    text = format_section_card(
+        section,
+        index=index,
+        total=total
     )
 
     send_message(
@@ -95,7 +95,7 @@ def show_current_result(user_id: int):
             index=index,
             total=total,
             has_prev=index > 0,
-            has_next=index < total - 1,
+            has_next=index < total - 1
         ),
         attachment=section.get("image_attachment")
     )
