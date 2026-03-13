@@ -34,5 +34,14 @@
     "age_to": 15,
     "description": "Секция мини-футбола для школьников.",
     "image_attachment": "photo-236557317_457239017"
+  },
+    {
+    "id": 4,
+    "title": "Баскетбол",
+    "sport": "баскетбол",
+    "age_from": 10,
+    "age_to": 15,
+    "description": "Секция Баскетбол для школьников.",
+    "image_attachment": "photo-236557317_457239024"
   }
 ]
